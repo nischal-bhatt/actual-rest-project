@@ -42,4 +42,22 @@ public Employee saveEmployee(Employee emp) {
 	return emp;
 	
 }
+
+public Employee deleteEmployee(int empId) {
+	
+	for (int i =0; i<list.size(); i++)
+	{
+		if (empId == list.get(i).getEmployeeId())
+		{
+			Employee returnval = list.remove(i);
+			return returnval;
+	}
+
+	}
+
+    
+	
+	
+	return null;
+}
 }
