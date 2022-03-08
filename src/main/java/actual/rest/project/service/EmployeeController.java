@@ -51,7 +51,7 @@ public class EmployeeController {
 		 
 		 if (null == returnval)
 		 {
-			 throw new EmployeeNotFound("employee not found la wahlau from new custom exception");
+			 throw new EmployeeNotFound("employee not found TEST TEST from new custom exception");
 		 }
 		 
 		 return returnval;
