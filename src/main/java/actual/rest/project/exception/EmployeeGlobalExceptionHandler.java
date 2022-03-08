@@ -2,8 +2,10 @@ package actual.rest.project.exception;
 
 import java.util.Date;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,5 +36,13 @@ public class EmployeeGlobalExceptionHandler extends ResponseEntityExceptionHandl
 		  EmployeeExceptionResponse exception = new EmployeeExceptionResponse(ex.getMessage(), request.getDescription(false), new Date());
 		  
 		 return  new ResponseEntity<Object>(exception,HttpStatus.NOT_FOUND);
+	  }
+	  
+	  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request)
+	  {
+		EmployeeExceptionResponse exception =
+				new EmployeeExceptionResponse("invalid inputs",ex.getBindingResult().toString(),new Date());
+		   
+		 return  new ResponseEntity<Object>(exception,HttpStatus.BAD_REQUEST);
 	  }
 }

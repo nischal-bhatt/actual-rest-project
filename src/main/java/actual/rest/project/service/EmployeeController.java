@@ -3,6 +3,8 @@ package actual.rest.project.service;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,7 +45,7 @@ public class EmployeeController {
 	}
 	 
 	@PostMapping("/employees/user")
-	public ResponseEntity<Object> saveEmployee(@RequestBody Employee emp)
+	public ResponseEntity<Object> saveEmployee(@Valid @RequestBody Employee emp)
 	{
 		 Employee employee = service.saveEmployee(emp);
 	URI uri = 	 ServletUriComponentsBuilder.fromCurrentRequest().path("{employeeId}").buildAndExpand(employee.getEmployeeId() ).toUri();

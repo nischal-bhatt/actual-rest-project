@@ -1,8 +1,13 @@
 package actual.rest.project.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+
 public class Employee {
    private int employeeId;
+   @Size(min=3,max=10, message="invalid chars for name")
    private String name;
+   @Email
    private String email;
 public Employee(int employeeId, String name, String email) {
 	super();
