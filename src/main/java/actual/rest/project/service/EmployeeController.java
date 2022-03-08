@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import actual.rest.project.exception.EmployeeNotFound;
 import actual.rest.project.model.Employee;
 import actual.rest.project.model.EmployeeDao;
 
@@ -41,5 +42,18 @@ public class EmployeeController {
 	public void saveEmployee(@RequestBody Employee emp)
 	{
 		 service.saveEmployee(emp);
+	}
+	
+	@GetMapping("/employeesNew/{empId}")
+	public Employee getEmployeeNewById(@PathVariable int empId)
+	{
+		 Employee returnval = this.service.getEmployeeById(empId);
+		 
+		 if (null == returnval)
+		 {
+			 throw new EmployeeNotFound("employee not found la wahlau from new custom exception");
+		 }
+		 
+		 return returnval;
 	}
 }
