@@ -36,9 +36,10 @@ public Employee getEmployeeById(int empId) {
 	return null;
 }
 
-public void saveEmployee(Employee emp) {
+public Employee saveEmployee(Employee emp) {
 	emp.setEmployeeId(list.size()+1);
 	list.add(emp);
+	return emp;
 	
 }
 }

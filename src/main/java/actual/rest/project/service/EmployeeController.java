@@ -1,13 +1,16 @@
 package actual.rest.project.service;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import actual.rest.project.exception.EmployeeNotFound;
 import actual.rest.project.model.Employee;
@@ -39,10 +42,16 @@ public class EmployeeController {
 	}
 	 
 	@PostMapping("/employees/user")
-	public void saveEmployee(@RequestBody Employee emp)
+	public ResponseEntity<Object> saveEmployee(@RequestBody Employee emp)
 	{
-		 service.saveEmployee(emp);
+		 Employee employee = service.saveEmployee(emp);
+	URI uri = 	 ServletUriComponentsBuilder.fromCurrentRequest().path("{employeeId}").buildAndExpand(employee.getEmployeeId() ).toUri();
+		 
+	
+	    return ResponseEntity.created(uri).build();
+		 
 	}
+	
 	
 	@GetMapping("/employeesNew/{empId}")
 	public Employee getEmployeeNewById(@PathVariable int empId)
