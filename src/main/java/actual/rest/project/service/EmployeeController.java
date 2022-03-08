@@ -29,6 +29,11 @@ public class EmployeeController {
 	{
 		 Employee returnval = this.service.getEmployeeById(empId);
 		 
+		 if (null == returnval)
+		 {
+			 throw new RuntimeException("employee not found la wahlau");
+		 }
+		 
 		 return returnval;
 	}
 	 
