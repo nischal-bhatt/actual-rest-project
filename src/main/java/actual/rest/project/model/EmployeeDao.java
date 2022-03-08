@@ -22,4 +22,17 @@ public class EmployeeDao {
    {
 	   return list;
    }
+
+public Employee getEmployeeById(int empId) {
+	
+	for (int i =0; i<list.size(); i++)
+	{
+		if (empId == list.get(i).getEmployeeId())
+		{
+			return list.get(i);
+		}
+	}
+	
+	return null;
+}
 }
