@@ -6,6 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +35,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/employees/{empId}")
-	public Employee getEmployeeById(@PathVariable int empId)
+	public EntityModel<Employee> getEmployeeById(@PathVariable int empId)
 	{
 		 Employee returnval = this.service.getEmployeeById(empId);
 		 
@@ -40,8 +43,10 @@ public class EmployeeController {
 		 {
 			 throw new RuntimeException("employee not found la wahlau");
 		 }
-		 
-		 return returnval;
+		 EntityModel<Employee> model= EntityModel.of(returnval);
+		 Link link=WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllEmployees()).withRel("all-employees");
+		 model.add(link);
+		 return model;
 	}
 	 
 	@PostMapping("/employees/user")
